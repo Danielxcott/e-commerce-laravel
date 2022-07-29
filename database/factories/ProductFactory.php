@@ -30,7 +30,7 @@ class ProductFactory extends Factory
            'stock_status' => 'instock',
            'quantity' => fake()->numberBetween(100,250),
            'image' => 'digital_'.fake()->numberBetween(1,12).".jpg",
-           'category_id' => Category::factory(),
+           'category_id' => Category::inRandomOrder()->first()->id,
         ];
     }
 }
