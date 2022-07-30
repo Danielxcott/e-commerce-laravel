@@ -6,9 +6,12 @@ use App\Http\Livewire\ShopComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
 use App\Http\Livewire\CheckoutComponent;
+use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
+use App\Http\Livewire\Admin\AdminAddProductComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +37,6 @@ Route::put("/cart/decrease/{product}",[CartController::class,'decreaseQty'])->na
 Route::delete("/cart/delete/{product}",[CartController::class,'destroy'])->name("cart.destroy");
 Route::get("/cart/delete-all",[CartController::class,'destroyAll'])->name("cart.destroyAll");
 
-
 // Route::middleware([
 //     'auth:sanctum',
 //     config('jetstream.auth_session'),
@@ -53,4 +55,8 @@ Route::middleware(['auth:sanctum','verified'])->group(function(){
 //for admin
 Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     Route::get('/admin/dashboard',AdminDashboardComponent::class)->name('admin.dashboard');
+    Route::get("admin/products",AdminProductComponent::class)->name('admin.products');
+    Route::get("admin/products/add",AdminAddProductComponent::class)->name('admin.addProducts');
+    Route::post("admin/add/products",[ProductController::class,'store'])->name("product.add");
+
 });
