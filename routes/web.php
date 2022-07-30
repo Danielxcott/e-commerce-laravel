@@ -37,6 +37,8 @@ Route::put("/cart/increase/{product}",[CartController::class,'increaseQty'])->na
 Route::put("/cart/decrease/{product}",[CartController::class,'decreaseQty'])->name("cart.decrease");
 Route::delete("/cart/delete/{product}",[CartController::class,'destroy'])->name("cart.destroy");
 Route::get("/cart/delete-all",[CartController::class,'destroyAll'])->name("cart.destroyAll");
+Route::post("/wishlist/add",[CartController::class,'addtowish'])->name("add.wishlist");
+Route::post("/wishlist/remove/{product}",[CartController::class,'removewishlist'])->name("remove.wishlist");
 
 // Route::middleware([
 //     'auth:sanctum',

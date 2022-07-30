@@ -1,3 +1,24 @@
+<style>
+    .product-wish{
+        position: absolute;
+        top: 10%;
+        left: 0;
+        right: 30px;
+        z-index: 70;
+        text-align: right;
+        padding-top: 0;
+    }
+    .product-wish .fa{
+        color: #cbcbcb;
+        font-size: 30px;
+    }
+    .product-wish .fa:hover{
+        color: #ff3c45;
+    }
+    .product-wish .fill-heart{
+        color: #ff3c45;
+    }
+</style>
 <main id="main" class="main-site left-sidebar">
 
     <div class="container">
@@ -57,7 +78,9 @@
                 <div class="row">
 
                     <ul class="product-list grid-products equal-container">
-
+                        @php
+                            $wishitems = Cart::instance('wishlist')->content()->pluck('id');
+                        @endphp
                         @foreach ($products as $key => $product )
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
@@ -76,6 +99,23 @@
                                         <input type="hidden" name="price" value="{{ $product->regular_price }}" >
                                         <button type="submit" class="btn btn-secondary">Add To Cart</button>
                                     </form>
+                                    <div class="product-wish">
+                                        @if ($wishitems->contains($product->id))
+                                        <form action="{{ route('remove.wishlist',$product->id) }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <button type="submit"><i class="fa fa-heart fill-heart"></i></button>
+                                        </form>
+                                        @else
+                                        <form action="{{ route('add.wishlist') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <input type="hidden" name="name" value="{{ $product->name }}" >
+                                            <input type="hidden" name="price" value="{{ $product->regular_price }}" >
+                                            <button type="submit"><i class="fa fa-heart "></i></button>
+                                        </form>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </li>
