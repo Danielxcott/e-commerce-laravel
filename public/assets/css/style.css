@@ -7212,3 +7212,10 @@ svg{
 .wrap-pagination-info .rounded-r-md{
     margin-left: 5px;
 }
+
+.qty-btn{
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+}

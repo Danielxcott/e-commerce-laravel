@@ -44,14 +44,35 @@
                         <div class="quantity">
                             <span>Quantity:</span>
                             <div class="quantity-input">
-                                <input type="text" name="product-quatity" value="1" data-max="120" pattern="[0-9]*" >
+                                <input type="text" name="product-quatity" value="{{ $product->quantity }}" data-max="120" pattern="[0-9]*" >
                                 
-                                <a class="btn btn-reduce" href="#"></a>
-                                <a class="btn btn-increase" href="#"></a>
+                                <form action="{{ route('cart.qtydec',$product->slug) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="qty" value="{{ $product->quantity }}">
+                                    <button type="submit" class="qty-btn">
+                                    </button>
+                                </form>	
+
+                                <form action="{{ route('cart.qtyin',$product->slug) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="qty" value="1">
+                                    <button type="submit" class="qty-btn">
+                                    </button>
+                                </form>		
                             </div>
                         </div>
                         <div class="wrap-butons">
-                            <a href="#" class="btn add-to-cart">Add to Cart</a>
+                            {{-- <a href="#" class="btn add-to-cart" wire::click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">Add to Cart</a> --}}
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $product->id }}" >
+                                <input type="hidden" name="name" value="{{ $product->name }}" >
+                                <input type="hidden" name="qty" value="{{ $product->quantity }}" >
+                                <input type="hidden" name="price" value="{{ $product->regular_price }}" >
+                                <button type="submit" class="btn btn-secondary">Add To Cart</button>
+                            </form>
                             <div class="wrap-btn">
                                 <a href="#" class="btn btn-compare">Add Compare</a>
                                 <a href="#" class="btn btn-wishlist">Add Wishlist</a>

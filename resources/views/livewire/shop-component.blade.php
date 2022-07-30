@@ -71,7 +71,13 @@
                                 <div class="product-info">
                                     <a href="{{ route('product.detail',$product->slug) }}" class="product-name"><span>{{ $product->name }}</span></a>
                                     <div class="wrap-price"><span class="product-price">${{ $product->regular_price }}</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
+                                    <form action="{{ route('cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $product->id }}" >
+                                        <input type="hidden" name="name" value="{{ $product->name }}" >
+                                        <input type="hidden" name="price" value="{{ $product->regular_price }}" >
+                                        <button type="submit" class="btn btn-secondary">Add To Cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </li>

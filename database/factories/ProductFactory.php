@@ -28,7 +28,7 @@ class ProductFactory extends Factory
            'regular_price' => fake()->numberBetween(10,500),
            'SKU' => 'DIGI'.fake()->unique()->numberBetween(100,500),
            'stock_status' => 'instock',
-           'quantity' => fake()->numberBetween(100,250),
+        //    'quantity' => fake()->numberBetween(100,250),
            'image' => 'digital_'.fake()->numberBetween(1,12).".jpg",
            'category_id' => Category::inRandomOrder()->first()->id,
         ];
