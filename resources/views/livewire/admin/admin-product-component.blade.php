@@ -39,7 +39,7 @@
                                         <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->created_at->format("d M Y") }}</td>
                                         <td>
-                                            <a href="" class="btn btn-warning">Edit</a>
+                                            <a href="{{ route('admin.editProduct',['product'=>$product->slug]) }}" class="btn btn-warning">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
