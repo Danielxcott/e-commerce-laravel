@@ -81,6 +81,9 @@
 												<li class="menu-item" >
 													<a title="products upload" href="{{ route('admin.addProducts') }}">Upload Products</a>
 												</li>
+												<li class="menu-item" >
+													<a title="all coupons" href="{{ route('admin.coupons') }}">All Coupons</a>
+												</li>
 												<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 													@csrf
 												</form>
