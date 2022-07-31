@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('coupons', function (Blueprint $table) {
-            $table->date("expiry_date")->default(DB::raw('CURRENT_DATE'));
+            $table->date("expiry_date")->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
