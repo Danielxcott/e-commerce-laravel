@@ -40,6 +40,10 @@ use App\Models\Coupon;
                             <label for="cart-value">Cart Value</label>
                             <input type="text" value="{{ $coupon->cart_value }}" class="form-control" name="cart_value" id="cart-value">
                         </div>
+                        <div class="form-group">
+                            <label for="cart-value">Expiry Date</label>
+                            <input type="date" value="{{ $coupon->expiry_date }}" class="form-control" name="date" id="cart-value">
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

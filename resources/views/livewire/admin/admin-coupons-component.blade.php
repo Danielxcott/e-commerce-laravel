@@ -21,6 +21,7 @@
                                 <th>Coupon Type</th>
                                 <th>Coupon Value</th>
                                 <th>Cart Value</th>
+                                <th>Expiry Date</th>
                                 <th>Action</th>
                             </tr>
                         </head>
@@ -36,6 +37,7 @@
                                         <td>{{ $coupon->value }} %</td>
                                     @endif
                                     <td>{{ $coupon->cart_value }}</td>
+                                    <td>{{ $coupon->expiry_date }}</td>
                                     <td>
                                         <a class="btn btn-warning" href="{{ route('admin.editCoupons',["coupon"=>$coupon->id]) }}">edit</a>
                                         <form style="display: inline-block;" action="{{ route("coupon.destroy",$coupon->id) }}" method="post"> 

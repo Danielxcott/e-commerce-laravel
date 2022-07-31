@@ -12,6 +12,7 @@ class CouponController extends Controller
 
     public function store(Request $request)
     {
+        return $request;
         request()->validate([
             "code" => ["required","unique:coupons,code"],
             "type" => ["required"],
@@ -24,6 +25,7 @@ class CouponController extends Controller
         $coupons->type = $request->type;
         $coupons->value = $request->value;
         $coupons->cart_value = $request->cart_value;
+        $coupons->expiry_date = $request->date;
         $coupons->save();
         return to_route("admin.coupons");
     }
@@ -41,6 +43,7 @@ class CouponController extends Controller
         $coupon->type = $request->type;
         $coupon->value = $request->value;
         $coupon->cart_value = $request->cart_value;
+        $coupon->expiry_date = $request->date;
         $coupon->update();
         return to_route("admin.coupons");
     }

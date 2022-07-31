@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coupon;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -118,7 +119,7 @@ class CartController extends Controller
     //find Coupon code 
     public function getCoupon(Request $request)
     {
-        $coupon = Coupon::where("code",$request->coupon_code)->where("cart_value","<=",Cart::instance('cart')->subtotal())->first();
+        $coupon = Coupon::where("code",$request->coupon_code)->where("expiry_date",">=",Carbon::today())->where("cart_value","<=",Cart::instance('cart')->subtotal())->first();
         if(!$coupon)
         {
             return back()->with("coupon_message","Coupon code is invalid");
