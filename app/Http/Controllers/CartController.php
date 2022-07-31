@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -111,6 +112,23 @@ class CartController extends Controller
     public function deleteFromSaveForLater($rowId)
     {
         Cart::instance('saveForLater')->remove($rowId);
+        return back();
+    }
+
+    //find Coupon code 
+    public function getCoupon(Request $request)
+    {
+        $coupon = Coupon::where("code",$request->coupon_code)->where("cart_value","<=",Cart::instance('cart')->subtotal())->first();
+        if(!$coupon)
+        {
+            return back()->with("coupon_message","Coupon code is invalid");
+        }
+        session()->put('coupon',[
+            'code' => $coupon->code,
+            'type' =>$coupon->type,
+            'value' => $coupon->value,
+            'cart_value' =>$coupon->cart_value
+        ]);
         return back();
     }
 }

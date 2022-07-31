@@ -21,6 +21,9 @@
         font-size: 14px;
         font-weight: 500;
     }
+    .summary-item{
+        display: none;
+    }
 </style>
 <main id="main" class="main-site">
 
@@ -93,18 +96,43 @@
                 @endif
             </div>
 
+            <!-- go to cart.php and find thousand_seperator and give it as empty value, change this "," -> "" -->
             <div class="summary">
                 <div class="order-summary">
                     <h4 class="title-box">Order Summary</h4>
                     <p class="summary-info"><span class="title">Subtotal</span><b class="index">${{ Cart::instance('cart')->subtotal() }}</b></p>
-                    <p class="summary-info"><span class="title">Tax</span><b class="index">${{ Cart::instance('cart')->tax() }}</b></p>
-                    <p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
-                    <p class="summary-info total-info "><span class="title">Total</span><b class="index">${{ Cart::instance('cart')->total() }}</b></p>
+                    @if (Session::has("coupon"))
+                        <p class="summary-info"><span class="title">Discount({{ Session::get("coupon")['code'] }})</span><b class="index"> -${{ number_format($discount,2) }}</b></p>
+                        <p class="summary-info"><span class="title">Subtotal with Discount</span><b class="index">${{ number_format($subtotalAfterDiscount,2) }}</b></p>
+                        <p class="summary-info"><span class="title">Tax ({{ config("cart.tax") }}%)</span><b class="index">${{ number_format($taxAfterDiscount,2) }}</b></p>
+                        <p class="summary-info total-info "><span class="title">Total</span><b class="index">${{ number_format($totalAfterDiscount,2) }}</b></p>
+                    @else
+                     <p class="summary-info"><span class="title">Tax</span><b class="index">${{ Cart::instance('cart')->tax() }}</b></p>
+                     <p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
+                     <p class="summary-info total-info "><span class="title">Total</span><b class="index">${{ Cart::instance('cart')->total() }}</b></p>
+                    @endif
                 </div>
+
                 <div class="checkout-info">
+                    @if (!Session::has('coupon'))   
                     <label class="checkbox-field">
-                        <input class="frm-input " name="have-code" id="have-code" value="" type="checkbox"><span>I have promo code</span>
+                        <input class="frm-input " name="have-code" id="have-code" value="" type="checkbox" ><span>I have coupon code</span>
                     </label>
+                    <div class="summary-item">
+                        <form action="{{ route("get.coupon") }}" method="get">
+                            @csrf
+                            <h4 class="title-box">Coupon Code</h4>
+                            <p class="row-in-form">
+                                <label for="">Enter your coupon code:</label>
+                                <input type="text" class="form-control" name="coupon_code">
+                            </p>
+                            @if(session("coupon_message"))
+                            <p class="text-danger">{{ session("coupon_message") }}</p>
+                            @endif
+                            <button type="submit" class="btn btn-sm">Apply</button>
+                        </form>
+                    </div>
+                    @endif
                     <a class="btn btn-checkout" href="checkout.html">Check out</a>
                     <a class="link-to-shop" href="{{ route("shop") }}">Continue Shopping<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </div>
@@ -315,3 +343,16 @@
     </div><!--end container-->
 
 </main>
+<script>
+    let checkCode = document.querySelector("#have-code");
+    let couponBox = document.querySelector(".summary-item");
+    checkCode.addEventListener("change",function(e){
+        if(e.target.checked)
+        {
+            couponBox.style.display = "block";
+        }else
+        {
+            couponBox.style.display = "none";
+        }
+    });
+</script>

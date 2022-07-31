@@ -80,4 +80,5 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     Route::delete("/admin/coupon/{coupon:id}/delete/",[CouponController::class,"destroy"])->name("coupon.destroy");
     Route::post("/admin/add/coupons",[CouponController::class,"store"])->name("admin.storeCoupon");
     Route::put("/admin/coupons/{coupon}/update",[CouponController::class,"update"])->name("admin.updateCoupon");
+    Route::get("/admin/get/coupon",[CartController::class,"getCoupon"])->name("get.coupon");
 });
