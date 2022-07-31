@@ -1,3 +1,24 @@
+@php
+$wishitems = Cart::instance('wishlist')->content()->pluck('id');
+@endphp
+<style>
+    .wrap-btn{
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .wrap-btn form{
+        margin-left: 10px;
+    }
+    .wrap-btn button{
+        border: none;
+        color: #888888;
+        background: transparent;
+    }
+    .wrap-btn button:hover{
+        color: #ff3c45;
+    }
+</style>
 <main id="main" class="main-site">
 
     <div class="container">
@@ -75,7 +96,21 @@
                             </form>
                             <div class="wrap-btn">
                                 <a href="#" class="btn btn-compare">Add Compare</a>
-                                <a href="#" class="btn btn-wishlist">Add Wishlist</a>
+                                @if ($wishitems->contains($product->id))
+                                        <form action="{{ route('remove.wishlist',$product->id) }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <button type="submit"><i class="fa fa-heart fill-heart"></i>remove Wishlist</button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('add.wishlist') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <input type="hidden" name="name" value="{{ $product->name }}" >
+                                            <input type="hidden" name="price" value="{{ $product->regular_price }}" >
+                                            <button type="submit"><i class="fa fa-heart "></i>Add Wishlist</button>
+                                        </form>
+                                    @endif
                             </div>
                         </div>
                     </div>

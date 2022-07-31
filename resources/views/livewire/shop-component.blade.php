@@ -18,6 +18,10 @@
     .product-wish .fill-heart{
         color: #ff3c45;
     }
+    button{
+        border: none;
+        background: transparent;
+    }
 </style>
 <main id="main" class="main-site left-sidebar">
 
@@ -25,7 +29,7 @@
 
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
+                <li class="item-link"><a href="/" class="link">home</a></li>
                 <li class="item-link"><span>Digital & Electronics</span></li>
             </ul>
         </div>

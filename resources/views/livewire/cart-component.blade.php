@@ -1,3 +1,27 @@
+<style>
+    .save-btn{
+        border: none;
+        background: transparent;
+    }
+    .quantity-input{
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+    }
+    .quantity-input .increase,.decrease {
+        border: none;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 50%;
+        line-height: 10px;
+    }
+    .quantity-input button:hover{
+        background: #ff2d2d;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+    }
+</style>
 <main id="main" class="main-site">
 
     <div class="container">
@@ -34,14 +58,18 @@
                                 <form action="{{ route('cart.increase',$item->rowId) }}" method="post">
                                     @csrf
                                     @method('put')
-                                    <button type="submit" class="">increase</button>
+                                    <button type="submit" class="increase">+</button>
                                 </form>									
                                 <form action="{{ route('cart.decrease',$item->rowId) }}" method="post">
                                     @csrf
                                     @method('put')
-                                    <button type="submit" class="">decrease</button>
+                                    <button type="submit" class="decrease">-</button>
                                 </form>	
                             </div>
+                            <form action="{{ route('cart.saveforlater',$item->rowId) }}" method="post">
+                                @csrf
+                                <button type="submit" class="save-btn" >Save For Later</button>
+                            </form>
                         </div>
                         <div class="price-field sub-total"><p class="price">${{ $item->subtotal }}</p></div>
                         <div class="delete">
@@ -78,12 +106,59 @@
                         <input class="frm-input " name="have-code" id="have-code" value="" type="checkbox"><span>I have promo code</span>
                     </label>
                     <a class="btn btn-checkout" href="checkout.html">Check out</a>
-                    <a class="link-to-shop" href="shop.html">Continue Shopping<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                    <a class="link-to-shop" href="{{ route("shop") }}">Continue Shopping<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="update-clear">
                     <a class="btn btn-clear" href="{{ route('cart.destroyAll') }}">Clear Shopping Cart</a>
                     <a class="btn btn-update" href="#">Update Shopping Cart</a>
                 </div>
+            </div>
+
+            <div class="wrap-iten-in-cart">
+                <h3>{{ Cart::instance("saveForLater")->count() }} items Saved For Later</h3>
+                @if(session('success_message'))
+                <div class="alert alert-success">
+                    {{ session('success_message') }}
+                </div>
+                @endif
+                @if (Cart::instance('saveForLater')->count() > 0)
+                <h3 class="box-title">Products Name</h3>
+                <ul class="products-cart">
+                    @foreach (Cart::instance('saveForLater')->content() as $item )
+                    <li class="pr-cart-item">
+                        <div class="product-image">
+                            <figure><img src="{{ asset('assets/images/products/'.$item->model->image)}}" alt="{{ $item->model->name }}"></figure>
+                        </div>
+                        <div class="product-name">
+                            <a class="link-to-product" href="{{ route('product.detail',$item->model->slug) }}">{{ $item->model->name }}</a>
+                        </div>
+                        <div class="price-field produtc-price"><p class="price">${{ $item->model->regular_price }}</p></div>
+                        <div class="quantity">
+                            <form action="{{ route('cart.moveFromSaveToCart',$item->rowId) }}" method="post">
+                                @csrf
+                                <button type="submit" class="save-btn" >Move To Cart</button>
+                            </form>
+                        </div>
+                        <div class="price-field sub-total"><p class="price">${{ $item->subtotal }}</p></div>
+                        <div class="delete">
+                            {{-- <a href="#" class="btn btn-delete" title="">
+                                <span>Delete from your cart</span>
+                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                            </a> --}}
+                            <form action="{{ route('cart.deletefromsaveforlater',$item->rowId) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger">
+                                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                    @endforeach											
+                </ul>
+                @else
+                <p>No items are added in the save for later session!</p>
+                @endif
             </div>
 
             <div class="wrap-show-advance-info-box style-1 box-in-site">

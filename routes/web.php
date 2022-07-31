@@ -13,6 +13,7 @@ use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
+use App\Http\Livewire\WishlistComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ use App\Http\Livewire\Admin\AdminEditProductComponent;
 Route::get("/",HomeComponent::class);
 Route::get("/shop",ShopComponent::class)->name("shop");
 Route::get("/cart",CartComponent::class)->name("cart");
+Route::get("/wishlist",WishlistComponent::class)->name("wishlist");
 Route::get("/checkout",CheckoutComponent::class)->name("checkout");
 Route::get("/product/{slug}",DetailsComponent::class)->name("product.detail");
 Route::post("/cart/store",[CartController::class,'store'])->name("cart.store");
@@ -38,7 +40,11 @@ Route::put("/cart/decrease/{product}",[CartController::class,'decreaseQty'])->na
 Route::delete("/cart/delete/{product}",[CartController::class,'destroy'])->name("cart.destroy");
 Route::get("/cart/delete-all",[CartController::class,'destroyAll'])->name("cart.destroyAll");
 Route::post("/wishlist/add",[CartController::class,'addtowish'])->name("add.wishlist");
-Route::post("/wishlist/remove/{product}",[CartController::class,'removewishlist'])->name("remove.wishlist");
+Route::post("/wishlist/remove/{product:id}",[CartController::class,'removewishlist'])->name("remove.wishlist");
+Route::post("/wishlist/move/{product:id}",[CartController::class,'moveItemFromWishToCart'])->name("move.wishlistToCart");
+Route::post("/cart/save-for-later/{product:id}",[CartController::class,'saveForLater'])->name("cart.saveforlater");
+Route::post("/cart/save-for-later/move/{product:id}",[CartController::class,'moveToCart'])->name("cart.moveFromSaveToCart");
+Route::delete("/cart/delete/save-for-later/{product:id}",[CartController::class,"deleteFromSaveForLater"])->name("cart.deletefromsaveforlater");
 
 // Route::middleware([
 //     'auth:sanctum',

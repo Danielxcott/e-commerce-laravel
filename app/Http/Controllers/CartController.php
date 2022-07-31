@@ -66,19 +66,51 @@ class CartController extends Controller
     //wishlist
     public function addtowish(Request $request)
     {
-        Cart::instance('wishlist')->add($request->id,$request->name,1,$request->price)->associate('Product');
+        Cart::instance('wishlist')->add($request->id,$request->name,1,$request->price)->associate('App\Models\Product');
         return back();
     }
 
     public function removewishlist($product_id)
     {
-        foreach(Cart::instance('wishlist')->content() as $item )
+        foreach(Cart::instance('wishlist')->content() as $witem )
         {
-            if($item->id == $product_id)
+            if($witem->id == $product_id)
             {
-                Cart::instance('wishlist')->remove($item->rowId);
+                Cart::instance('wishlist')->remove($witem->rowId);
                 return back();
             }
         }
+    }
+
+    public function moveItemFromWishToCart($rowId)
+    {
+        $item = Cart::instance("wishlist")->get($rowId);
+        Cart::instance("wishlist")->remove($rowId);
+        Cart::instance("cart")->add($item->id,$item->name,1,$item->price)->associate('App\Models\Product');
+        return back();
+    }
+
+    //save for later
+
+    public function saveForLater($rowId)
+    {
+        $item = Cart::instance("cart")->get($rowId);
+        Cart::instance("cart")->remove($rowId);
+        Cart::instance("saveForLater")->add($item->id,$item->name,1,$item->price)->associate('App\Models\Product');
+        return back();
+    }
+
+    public function moveToCart($rowId)
+    {
+        $item = Cart::instance("saveForLater")->get($rowId);
+        Cart::instance("saveForLater")->remove($rowId);
+        Cart::instance("cart")->add($item->id,$item->name,1,$item->price)->associate('App\Models\Product');
+        return back();
+    }
+
+    public function deleteFromSaveForLater($rowId)
+    {
+        Cart::instance('saveForLater')->remove($rowId);
+        return back();
     }
 }
