@@ -49,6 +49,7 @@ Route::post("/wishlist/move/{product:id}",[CartController::class,'moveItemFromWi
 Route::post("/cart/save-for-later/{product:id}",[CartController::class,'saveForLater'])->name("cart.saveforlater");
 Route::post("/cart/save-for-later/move/{product:id}",[CartController::class,'moveToCart'])->name("cart.moveFromSaveToCart");
 Route::delete("/cart/delete/save-for-later/{product:id}",[CartController::class,"deleteFromSaveForLater"])->name("cart.deletefromsaveforlater");
+Route::get("/cart/checkout",[CartController::class,"checkout"])->name("cartTocheckout");
 
 // Route::middleware([
 //     'auth:sanctum',

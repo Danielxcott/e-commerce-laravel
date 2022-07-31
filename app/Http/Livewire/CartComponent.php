@@ -30,6 +30,27 @@ class CartComponent extends Component
        }
     }
 
+    public function setAmountForCheck()
+    {
+        if(session()->has('coupon'))
+        {
+            session()->put('checkout',[
+                'discount'=> $this->discount,
+                'subtotal' => $this->subtotalAfterDiscount,
+                'tax' => $this->taxAfterDiscount,
+                'total' => $this->totalAfterDiscount,
+            ]);
+        }else
+        {
+            session()->put('checkout',[
+                'discount'=> 0,
+                'subtotal' =>Cart::instance("cart")->subtotal(),
+                'tax' => Cart::instance("cart")->tax(),
+                'total' => Cart::instance("cart")->total(),
+            ]);
+        }
+    }
+
     public function render()
     {
 
@@ -43,6 +64,8 @@ class CartComponent extends Component
                 $this->calculateDiscount();
             }
         }
+
+        $this->setAmountForCheck();
 
         return view('livewire.cart-component')->layout("layouts.base");
     }

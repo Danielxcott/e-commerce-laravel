@@ -36,8 +36,8 @@
             </ul>
         </div>
         <div class=" main-content-area">
-
-            <div class="wrap-iten-in-cart">
+            @if (Cart::instance("cart")->count() > 0)
+                <div class="wrap-iten-in-cart">
                 @if(session('success_message'))
                 <div class="alert alert-success">
                     {{ session('success_message') }}
@@ -133,7 +133,7 @@
                         </form>
                     </div>
                     @endif
-                    <a class="btn btn-checkout" href="checkout.html">Check out</a>
+                    <a class="btn btn-checkout" href="{{ route('cartTocheckout') }}">Check out</a>
                     <a class="link-to-shop" href="{{ route("shop") }}">Continue Shopping<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="update-clear">
@@ -141,6 +141,14 @@
                     <a class="btn btn-update" href="#">Update Shopping Cart</a>
                 </div>
             </div>
+            @else
+                <div class="text-center" style="padding:30px 0;">
+                    <h1>Your cart is empty!</h1>
+                    <p>Add items to it now</p>
+                    <a href="/shop" class="btn btn-success">Shop Now</a>
+                </div>
+            @endif
+
 
             <div class="wrap-iten-in-cart">
                 <h3>{{ Cart::instance("saveForLater")->count() }} items Saved For Later</h3>

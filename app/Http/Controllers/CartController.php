@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Coupon;
 use App\Models\Product;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
@@ -132,4 +133,16 @@ class CartController extends Controller
         ]);
         return back();
     }
+
+    //checkout 
+
+    public function checkout()
+    {
+        if(Auth::check()){
+            return redirect()->route('checkout');
+        }else{
+            return redirect()->route("login");
+        }
+    }
+
 }
