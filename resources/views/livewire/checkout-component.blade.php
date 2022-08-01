@@ -2,6 +2,19 @@
     #shipping_box{
         display: none;
     }
+    #payment_form{
+        display: none;
+    }
+    .summary-item .row-in-form input[type="password"]{
+        font-size: 13px;
+        line-height: 19px;
+        display: inline-block;
+        height: 43px;
+        padding: 2px 20px;
+        max-width: 300px;
+        width: 100%;
+        border: 1px solid #e6e6e6;
+    }
 </style>
 <main id="main" class="main-site">
 
@@ -118,8 +131,29 @@
             <div class="summary summary-checkout">
                 <div class="summary-item payment-method">
                     <h4 class="title-box">Payment Method</h4>
-                    <p class="summary-info"><span class="title">Check / Money order</span></p>
-                    <p class="summary-info"><span class="title">Credit Cart (saved)</span></p>
+                    <div class="wrap-address-billing"  >
+                        <div id="payment_form">
+                            @if (Session::has("stripe_error"))
+                                <p class="text-danger">{{ session("stripe_error") }}</p>
+                            @endif
+                            <div class="row-in-form">
+                                <label for="">Card Number:</label>
+                                <input type="text" name="card_num" value="" placeholder="Card Number">
+                            </div>
+                            <div class="row-in-form">
+                                <label for="">Expiry Month:</label>
+                                <input type="text" name="expiry_month" value="" placeholder="MM">
+                            </div>
+                            <div class="row-in-form">
+                                <label for="">Expiry Year:</label>
+                                <input type="text" name="expiry_year" value="" placeholder="YYYY">
+                            </div>
+                            <div class="row-in-form">
+                                <label for="">CVC:</label>
+                                <input type="password"  name="cvc" value="" placeholder="CVC">
+                            </div>
+                        </div>
+                    </div>
                     <div class="choose-payment-methods">
                         <label class="payment-method">
                             <input name="payment_method" id="payment-method-bank" value="cod" type="radio">
@@ -158,6 +192,8 @@
 <script>
     let shipForm = document.querySelector("#shipping_box");
     let shipBox = document.querySelector("#shipBoxCheck");
+    let paymentForm = document.querySelector("#payment_form");
+    let visaBox = document.querySelector("#payment-method-visa");
     shipBox.addEventListener("change",function(e){
         if(e.target.checked)
         {
@@ -167,4 +203,14 @@
             shipForm.style.display = "none";
         }
     });
+    visaBox.addEventListener("change",function(e){
+        if(!e.target.checked)
+        {
+            paymentForm.style.display = "none";
+
+        }else
+        {
+            paymentForm.style.display = "block";
+        }
+    })
 </script>
