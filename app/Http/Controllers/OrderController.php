@@ -33,4 +33,15 @@ class OrderController extends Controller
         $order->update();
         return back();
     }
+
+    public function orderCancelStatus(Order $order,Request $request)
+    {
+        $order->status = $request->status;
+        if($request->status == "canceled")
+        {
+            $order->canceled_date = DB::raw("CURRENT_DATE");
+        }
+        $order->update();
+        return back();
+    }
 }

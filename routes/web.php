@@ -79,6 +79,7 @@ Route::middleware(['auth:sanctum','verified'])->group(function(){
     Route::get("/user/orders",UserOrdersComponent::class)->name("user.orders");
     Route::get("/user/orders/detail/{order}",UserOrderDetailsComponent::class)->name("user.ordersDetail");
     Route::delete("/user/order-delete/{order:id}",[OrderController::class,"userOrderDestroy"])->name("user.orderDelete");
+    Route::put("/user/order-status-cancel/{order}",[OrderController::class,"orderCancelStatus"])->name("user.orderCancelStatus");
 });
 
 //for admin
