@@ -9,7 +9,12 @@ class OrderController extends Controller
 {
     public function destroy(Order $order)
     {
+        $order->delete();
+        return back();
+    }
 
+    public function userOrderDestroy(Order $order)
+    {
         $order->delete();
         return back();
     }

@@ -106,6 +106,9 @@
 												<li class="menu-item" >
 													<a title="Pound (GBP)" href="{{ route('user.dashboard') }}">Dashboard</a>
 												</li>
+												<li class="menu-item" >
+													<a title="all orders" href="{{ route('user.orders') }}">My Orders</a>
+												</li>
 												<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 													@csrf
 												</form>
