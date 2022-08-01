@@ -32,6 +32,12 @@ class CartComponent extends Component
 
     public function setAmountForCheck()
     {
+        if(!Cart::instance('cart')->count() > 0)
+        {
+            session()->forget("checkout");
+            return back();
+        }
+
         if(session()->has('coupon'))
         {
             session()->put('checkout',[

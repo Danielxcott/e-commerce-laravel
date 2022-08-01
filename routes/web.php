@@ -6,6 +6,7 @@ use App\Http\Livewire\ShopComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\WishlistComponent;
 use App\Http\Controllers\CouponController;
@@ -18,6 +19,7 @@ use App\Http\Livewire\Admin\AdminAddCouponsComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminEditCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
+use App\Http\Livewire\ThankyouComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +36,7 @@ Route::get("/",HomeComponent::class);
 Route::get("/shop",ShopComponent::class)->name("shop");
 Route::get("/cart",CartComponent::class)->name("cart");
 Route::get("/wishlist",WishlistComponent::class)->name("wishlist");
-Route::get("/checkout",CheckoutComponent::class)->name("checkout");
+Route::get("/checkout",CheckoutComponent::class)->middleware(['auth:sanctum','verified'])->name("checkout");
 Route::get("/product/{slug}",DetailsComponent::class)->name("product.detail");
 Route::post("/cart/store",[CartController::class,'store'])->name("cart.store");
 Route::put("/cart/qty-in/{product:slug}",[CartController::class,'qtyincrease'])->name("cart.qtyin");
@@ -50,6 +52,11 @@ Route::post("/cart/save-for-later/{product:id}",[CartController::class,'saveForL
 Route::post("/cart/save-for-later/move/{product:id}",[CartController::class,'moveToCart'])->name("cart.moveFromSaveToCart");
 Route::delete("/cart/delete/save-for-later/{product:id}",[CartController::class,"deleteFromSaveForLater"])->name("cart.deletefromsaveforlater");
 Route::get("/cart/checkout",[CartController::class,"checkout"])->name("cartTocheckout");
+
+//checkout
+Route::post("/checkout/store",[CheckoutController::class,"store"])->name("checkout.store");
+Route::get("/thank-you",ThankyouComponent::class)->name("thankyou");
+
 
 // Route::middleware([
 //     'auth:sanctum',
