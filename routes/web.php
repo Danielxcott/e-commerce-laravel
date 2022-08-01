@@ -101,4 +101,6 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     Route::get("/admin/customers-orders",AdminOrderComponent::class)->name("admin.orderAll");
     Route::get("/admin/customers-orders-detail/{order}",AdminOrderDetailComponent::class)->name("admin.orderdetail");
     Route::delete("/admin/customers-order-delete/{order:id}",[OrderController::class,"destroy"])->name("admin.orderDelete");
+    Route::put("/admin/customers-order-update/{order}",[OrderController::class,"updateOrderStatus"])->name("admin.updateOrder");
+
 });

@@ -34,6 +34,8 @@ return new class extends Migration
             $table->string("zipcode");
             $table->enum("status",["ordered","delivered","canceled"])->default("ordered");
             $table->boolean("is_shipping_different")->default(false);
+            $table->date("delivered_date")->nullable();
+            $table->date("canceled_date")->nullable();
             $table->timestamps();
         });
     }

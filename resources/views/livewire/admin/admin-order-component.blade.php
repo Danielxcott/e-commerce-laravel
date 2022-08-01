@@ -33,7 +33,7 @@
                                 <th>Tax</th>
                                 <th>Total</th>
                                 <th>Order Date</th>
-                                <th>Action</th>
+                                <th colspan="2" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,11 +53,36 @@
                                     <td>${{ $order->total }}</td>
                                     <td>{{ $order->created_at->format("d M Y") }}</td>
                                     <td>
-                                        <a href="{{ route("admin.orderdetail",$order->id) }}" class="btn btn-warning">Detail</a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Status <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                   <form action="{{ route("admin.updateOrder",$order->id) }}" method="post">
+                                                    @method('put')
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="delivered">
+                                                    <button class="btn btn-link">Delivered</button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <form action="{{ route("admin.updateOrder",$order->id) }}" method="post">
+                                                        @method('put')
+                                                        @csrf
+                                                        <input type="hidden" name="status" value="canceled">
+                                                        <button class="btn btn-link text-decoration-none">Canceled</button>
+                                                        </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route("admin.orderdetail",$order->id) }}" class="btn btn-sm btn-warning">Detail</a>
                                         <form class="del-btn" action="{{ route("admin.orderDelete",$order->id) }}" method="post">
                                             @csrf
                                             @method("delete")
-                                            <button class="btn btn-danger">del</button>
+                                            <button class="btn btn-sm btn-danger">del</button>
                                         </form>
                                     </td>
                                 </tr>

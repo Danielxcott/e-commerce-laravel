@@ -9,13 +9,37 @@
                 <div class="pannel-heading">
                     <div class="row">
                         <div class="col-md-6">
-                            Order Items
+                            <h3>Order Details</h3>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ route("admin.orderAll") }}" class="btn btn-success pull-right">All Orders</a>
                         </div>
                     </div>
                 </div>
+                <div class="pannel-body">
+                    <table class="table">
+                        <tr>
+                            <th>Order Id</th>
+                            <td>{{ $order->id }}</td>
+                            <th>Order Date</th>
+                            <td>{{ $order->created_at->format("d M Y") }}</td>
+                            <th>Status</th>
+                            <td>{{ $order->status }}</td>
+                            @if ($order->status == "delivered")
+                            <th>Delivery Date</th>
+                            <td>{{ $order->delivered_date }}</td>
+                            @elseif ($order->status == "canceled")
+                            <th>Canceled Date</th>
+                            <td>{{ $order->Canceled_date }}</td>
+                            @endif
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
                 <div class="pannel-body">
                     <div class="wrap-iten-in-cart">
                         <h3 class="box-title">Products Name</h3>
