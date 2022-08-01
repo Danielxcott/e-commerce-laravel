@@ -19,6 +19,8 @@ use App\Http\Livewire\Admin\AdminAddCouponsComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminEditCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
+use App\Http\Livewire\Admin\AdminOrderComponent;
+use App\Http\Livewire\Admin\AdminOrderDetailComponent;
 use App\Http\Livewire\ThankyouComponent;
 
 /*
@@ -89,4 +91,7 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     Route::post("/admin/add/coupons",[CouponController::class,"store"])->name("admin.storeCoupon");
     Route::put("/admin/coupons/{coupon}/update",[CouponController::class,"update"])->name("admin.updateCoupon");
     Route::get("/admin/get/coupon",[CartController::class,"getCoupon"])->name("get.coupon");
+
+    Route::get("/admin/customers-orders",AdminOrderComponent::class)->name("admin.orderAll");
+    Route::get("admin/customers-orders-detal/{slug}",AdminOrderDetailComponent::class)->name("admin.orderdetail");
 });
