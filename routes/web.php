@@ -10,6 +10,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\WishlistComponent;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
@@ -93,5 +94,6 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     Route::get("/admin/get/coupon",[CartController::class,"getCoupon"])->name("get.coupon");
 
     Route::get("/admin/customers-orders",AdminOrderComponent::class)->name("admin.orderAll");
-    Route::get("admin/customers-orders-detal/{slug}",AdminOrderDetailComponent::class)->name("admin.orderdetail");
+    Route::get("/admin/customers-orders-detail/{order}",AdminOrderDetailComponent::class)->name("admin.orderdetail");
+    Route::delete("/admin/customers-order-delete/{order:id}",[OrderController::class,"destroy"])->name("admin.orderDelete");
 });

@@ -5,6 +5,9 @@
     nav .hidden{
         display: block !important;
     }
+    .del-btn{
+        display: inline-block;
+    }
 </style>
 <div class="container" style="padding:30px 0;">
     <div class="row">
@@ -30,6 +33,7 @@
                                 <th>Tax</th>
                                 <th>Total</th>
                                 <th>Order Date</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +52,14 @@
                                     <td>${{ $order->tax }}</td>
                                     <td>${{ $order->total }}</td>
                                     <td>{{ $order->created_at->format("d M Y") }}</td>
+                                    <td>
+                                        <a href="{{ route("admin.orderdetail",$order->id) }}" class="btn btn-warning">Detail</a>
+                                        <form class="del-btn" action="{{ route("admin.orderDelete",$order->id) }}" method="post">
+                                            @csrf
+                                            @method("delete")
+                                            <button class="btn btn-danger">del</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

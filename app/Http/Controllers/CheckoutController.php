@@ -50,7 +50,7 @@ class CheckoutController extends Controller
         $order->zipcode =  $request->zipcode;
         $order->city =  $request->city;
         $order->status = "ordered";
-        $order->is_shipping_different = $request->ship_diffrent == "check" ? 1 : 0;
+        $order->is_shipping_different = $request->ship_different == "check" ? 1 : 0;
         $order->save();
         
         foreach(Cart::instance("cart")->content() as $item){
