@@ -68,4 +68,10 @@ class CategoryController extends Controller
 
         return back();
     }
+
+    public function subCategoryDestroy(SubCategory $subCategory)
+    {
+        $subCategory->delete();
+        return back();
+    }
 }

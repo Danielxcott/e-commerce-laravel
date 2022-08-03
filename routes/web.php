@@ -110,6 +110,7 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     Route::put("/admin/category/update/{category:slug}",[CategoryController::class,"update"])->name("admin.updateCategory");
     Route::put("/admin/subcategory/update/{subCategory:slug}",[CategoryController::class,"subcategoryUpdate"])->name("admin.updateSubCategory");
     Route::delete("admin/categories-delete/{category}",[CategoryController::class,"destroy"])->name("admin.deleteCategory");
+    Route::delete("admin/subcategory-delete/{subCategory}",[CategoryController::class,"subCategoryDestroy"])->name("admin.deleteSubCategory");
 
     Route::get("/admin/coupons",AdminCouponsComponent::class)->name("admin.coupons");
     Route::get("/admin/coupons/add",AdminAddCouponsComponent::class)->name("admin.addCoupons");

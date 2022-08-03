@@ -43,7 +43,14 @@
                                     <td>
                                         <ul class="sclist">
                                             @foreach ($category->subCategories as $subcategory )
-                                                <li>{{ $subcategory->name }} <a href="{{ route("admin.editSubCategory",['subCategory'=>$subcategory->slug]) }}"><i class="fa fa-edit"></i></a> </li>
+                                                <li>{{ $subcategory->name }} 
+                                                    <button class="btn btn-link"><a href="{{ route("admin.editSubCategory",['subCategory'=>$subcategory->slug]) }}"><i class="fa fa-edit"></i></a> </button>
+                                                    <form action="{{ route("admin.deleteSubCategory",$category->id) }}" method="post" style="display: inline-block">
+                                                        @csrf
+                                                        @method("delete")
+                                                        <button onclick="confirm('Are you sure to delete') || event.stopImmediatePropagation()" class="btn btn-link"><i class="fa fa-trash"></i></button>
+                                                    </form>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </td>
