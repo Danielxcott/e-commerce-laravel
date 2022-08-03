@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label for="form-label">Slug</label>
                             <input type="text" name="slug" value="{{ $category->slug }}" class="form-control">
-                        </div>
+                        </div>                  
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>

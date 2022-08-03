@@ -1,38 +1,39 @@
 <?php
 
+use App\Models\Category;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Controllers\CartController;
+use App\Http\Livewire\CheckoutComponent;
+use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\WishlistComponent;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Livewire\CheckoutComponent;
-use App\Http\Livewire\WishlistComponent;
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Livewire\Admin\AdminAddCategoryComponent;
+use App\Http\Livewire\Admin\AdminSaleComponent;
+use App\Http\Livewire\User\UserOrdersComponent;
+use App\Http\Livewire\User\UserReviewComponent;
+use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
+use App\Http\Livewire\Admin\AdminCategoryComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\Admin\AdminAddCouponsComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
-use App\Http\Livewire\Admin\AdminCategoryComponent;
-use App\Http\Livewire\Admin\AdminEditCategoryComponent;
+use App\Http\Livewire\User\UserOrderDetailsComponent;
+use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
-use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailComponent;
-use App\Http\Livewire\Admin\AdminSaleComponent;
-use App\Http\Livewire\ThankyouComponent;
-use App\Http\Livewire\User\UserOrderDetailsComponent;
-use App\Http\Livewire\User\UserOrdersComponent;
-use App\Http\Livewire\User\UserReviewComponent;
-use App\Models\Category;
+use App\Http\Livewire\Admin\AdminEditCategoryComponent;
+use App\Http\Livewire\Admin\AdminEditSubCategoryComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,9 +104,11 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
 
     Route::get("admin/categories",AdminCategoryComponent::class)->name("admin.categories");
     Route::get("/admin/category/add",AdminAddCategoryComponent::class)->name("admin.addCategory");
-    Route::get("/admin/category/edit/{category:slug}",AdminEditCategoryComponent::class)->name("admin.editCategory");
+    Route::get("/admin/category/edit/{category}",AdminEditCategoryComponent::class)->name("admin.editCategory");
+    Route::get("/admin/subcategory/edit/{subCategory}",AdminEditSubCategoryComponent::class)->name("admin.editSubCategory");
     Route::post("/admin/category/store",[CategoryController::class,"store"])->name("admin.storeCategory");
     Route::put("/admin/category/update/{category:slug}",[CategoryController::class,"update"])->name("admin.updateCategory");
+    Route::put("/admin/subcategory/update/{subCategory:slug}",[CategoryController::class,"subcategoryUpdate"])->name("admin.updateSubCategory");
     Route::delete("admin/categories-delete/{category}",[CategoryController::class,"destroy"])->name("admin.deleteCategory");
 
     Route::get("/admin/coupons",AdminCouponsComponent::class)->name("admin.coupons");

@@ -43,7 +43,7 @@
                                     <td>
                                         <ul class="sclist">
                                             @foreach ($category->subCategories as $subcategory )
-                                                <li>{{ $subcategory->name }}</li>
+                                                <li>{{ $subcategory->name }} <a href="{{ route("admin.editSubCategory",['subCategory'=>$subcategory->slug]) }}"><i class="fa fa-edit"></i></a> </li>
                                             @endforeach
                                         </ul>
                                     </td>

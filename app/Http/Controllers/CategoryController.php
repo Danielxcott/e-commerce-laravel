@@ -45,6 +45,19 @@ class CategoryController extends Controller
         return to_route("admin.categories");
     }
 
+    public function subcategoryUpdate(SubCategory $subCategory, Request $request)
+    {
+        request()->validate([
+            "name" => "required|string|".Rule::unique("sub_categories","name")->ignore($subCategory->id),
+            "slug" => "required|string|".Rule::unique("sub_categories","slug")->ignore($subCategory->id),
+        ]);
+        $subCategory->name = $request->name;
+        $subCategory->slug = $request->slug;
+        $subCategory->category_id = $request->category_id;
+        $subCategory->update();
+        return to_route("admin.categories");
+    }
+
 
     public function destroy(Category $category)
     {
