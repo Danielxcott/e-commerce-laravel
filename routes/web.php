@@ -12,6 +12,7 @@ use App\Http\Livewire\WishlistComponent;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
@@ -25,6 +26,7 @@ use App\Http\Livewire\Admin\AdminOrderDetailComponent;
 use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\User\UserOrderDetailsComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
+use App\Http\Livewire\User\UserReviewComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,8 @@ Route::middleware(['auth:sanctum','verified'])->group(function(){
     Route::get("/user/orders/detail/{order}",UserOrderDetailsComponent::class)->name("user.ordersDetail");
     Route::delete("/user/order-delete/{order:id}",[OrderController::class,"userOrderDestroy"])->name("user.orderDelete");
     Route::put("/user/order-status-cancel/{order}",[OrderController::class,"orderCancelStatus"])->name("user.orderCancelStatus");
+    Route::get("/user/review/{order_item_id}",UserReviewComponent::class)->name("user.review");
+    Route::post("/user/review-store",[ReviewController::class,"store"])->name("user.writeReview");
 });
 
 //for admin
