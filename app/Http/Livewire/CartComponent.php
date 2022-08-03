@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Sale;
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -72,7 +73,7 @@ class CartComponent extends Component
         }
 
         $this->setAmountForCheck();
-
-        return view('livewire.cart-component')->layout("layouts.base");
+        $sale = Sale::find(1);
+        return view('livewire.cart-component',["sale"=>$sale])->layout("layouts.base");
     }
 }

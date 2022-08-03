@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Sale;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -91,5 +92,14 @@ class ProductController extends Controller
         $product->category_id = $request->category; 
         $product->update();
         return to_route("admin.products");
+    }
+
+    public function saleStore(Request $request)
+    {
+        $sale = Sale::find(1);
+        $sale->status = $request->status;
+        $sale->sale_date = $request->sale_date;
+        $sale->save();
+        return back();
     }
 }

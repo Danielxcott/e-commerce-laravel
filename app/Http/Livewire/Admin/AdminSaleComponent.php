@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Http\Livewire\Admin;
+
+use App\Models\Sale;
+use Livewire\Component;
+
+class AdminSaleComponent extends Component
+{
+    public $sale_date;
+
+    public function render()
+    {
+        return view('livewire.admin.admin-sale-component')->layout("layouts.base");
+    }
+}

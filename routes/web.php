@@ -23,6 +23,7 @@ use App\Http\Livewire\Admin\AdminEditCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailComponent;
+use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\User\UserOrderDetailsComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
@@ -107,5 +108,6 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     Route::get("/admin/customers-orders-detail/{order}",AdminOrderDetailComponent::class)->name("admin.orderdetail");
     Route::delete("/admin/customers-order-delete/{order:id}",[OrderController::class,"destroy"])->name("admin.orderDelete");
     Route::put("/admin/customers-order-update/{order}",[OrderController::class,"updateOrderStatus"])->name("admin.updateOrder");
-
+    Route::get("/admin/sale",AdminSaleComponent::class)->name("admin.sale");
+    Route::post("/admin/sale-store",[ProductController::class,"saleStore"])->name("admin.saleStore");
 });

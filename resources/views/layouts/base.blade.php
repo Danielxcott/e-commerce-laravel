@@ -16,7 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }} ">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }} ">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }} ">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="home-page home-01 ">
 
@@ -80,6 +80,9 @@
 												</li>
 												<li class="menu-item" >
 													<a title="products upload" href="{{ route('admin.addProducts') }}">Upload Products</a>
+												</li>
+												<li class="menu-item" >
+													<a title="sale manager" href="{{ route('admin.sale') }}">Sale Manager</a>
 												</li>
 												<li class="menu-item" >
 													<a title="all coupons" href="{{ route('admin.coupons') }}">All Coupons</a>
@@ -503,16 +506,19 @@
 			</div>
 		</div>
 	</footer>
-	
-	<script src="{{ asset( 'assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4 ') }}"></script>
-	<script src="{{ asset( 'assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4 ') }}"></script>
-	<script src="{{ asset( 'assets/js/bootstrap.min.js ') }}"></script>
-	<script src="{{ asset( 'assets/js/jquery.flexslider.js ') }}"></script>
+	<script src="{{ asset('assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4 ') }}"></script>
+	<script src="{{ asset('assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4 ') }}"></script>
+	<script src="{{ asset('assets/js/bootstrap.min.js ') }}"></script>
+	<script src="{{ asset('assets/js/jquery.flexslider.js ') }}"></script>
 	{{-- <script src="{{ asset( 'assets/js/chosen.jquery.min.js ') }}"></script> --}}
-	<script src="{{ asset( 'assets/js/owl.carousel.min.js ') }}"></script>
-	<script src="{{ asset( 'assets/js/jquery.countdown.min.js ') }}"></script>
-	<script src="{{ asset( 'assets/js/jquery.sticky.js ') }}"></script>
-	<script src="{{ asset( 'assets/js/functions.js ') }}"></script>
-    
+	<script src="{{ asset('assets/js/owl.carousel.min.js ') }}"></script>
+	<script src="{{ asset('assets/js/jquery.countdown.min.js ') }}"></script>
+	<script src="{{ asset('assets/js/jquery.sticky.js ') }}"></script>
+	<script src="{{ asset('assets/js/functions.js ') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	@livewireScripts
+	@stack("script")
 </body>
 </html>

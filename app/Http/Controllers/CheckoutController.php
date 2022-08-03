@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\Order;
-use App\Mail\OrderMail;
 use App\Models\Shipping;
 use App\Models\OrderItem;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Exception;
 
 class CheckoutController extends Controller
 {
@@ -156,7 +154,6 @@ class CheckoutController extends Controller
             }
         }
 
-        $this->sendOrderConfirmation($order);
 
         Cart::instance("cart")->destroy();
 
@@ -183,10 +180,5 @@ class CheckoutController extends Controller
     $transaction->mode = $mode;
     $transaction->status = $status;
     $transaction->save();
-    }
-
-    public function sendOrderConfirmation($order)
-    {
-        Mail::to($order->email)->send(new OrderMail($order));
     }
 }

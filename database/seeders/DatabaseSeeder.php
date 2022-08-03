@@ -4,10 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Category;
+use App\Models\Sale;
 use App\Models\Product;
-use Illuminate\Database\Seeder;
 use Prophecy\Call\Call;
+use App\Models\Category;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,5 +27,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         Category::factory(6)->create();
         Product::factory(62)->create();
+        Sale::factory()->create([
+            'sale_date' => '2022-08-03 4:37:39',
+            'status' => 'inactive',
+        ]);
     }
 }
