@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,13 +14,22 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            "name" => "required|unique|string",
-            "slug" => "required|unique|string",
+            "name" => "required",
+            "slug" => "required",
         ]);
-        $category = new Category();
-        $category->name = $request->name;
-        $category->slug = Str::slug($request->slug);
-        $category->save();
+        if($request->category_id)
+        {
+            $subcategory = new SubCategory();
+            $subcategory->name = $request->name;
+            $subcategory->slug = $request->slug;
+            $subcategory->category_id = $request->category_id;
+            $subcategory->save();
+        }else{
+            $category = new Category();
+            $category->name = $request->name;
+            $category->slug = Str::slug($request->slug);
+            $category->save();
+        }
         return to_route("admin.categories");
     }
 

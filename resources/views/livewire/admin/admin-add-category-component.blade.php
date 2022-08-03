@@ -24,6 +24,15 @@
                                 <input type="text" name="slug" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label for="form-label">Parent Category</label>
+                                <select name="category_id" id="" class="custom-control form-control">
+                                    <option value="" selected disabled>Select the category</option>
+                                    @foreach ($categories as $category )
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
