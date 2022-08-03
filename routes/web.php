@@ -22,6 +22,7 @@ use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\Admin\AdminAddCouponsComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
+use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminOrderComponent;
@@ -102,7 +103,9 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
 
     Route::get("admin/categories",AdminCategoryComponent::class)->name("admin.categories");
     Route::get("/admin/category/add",AdminAddCategoryComponent::class)->name("admin.addCategory");
+    Route::get("/admin/category/edit/{category:slug}",AdminEditCategoryComponent::class)->name("admin.editCategory");
     Route::post("/admin/category/store",[CategoryController::class,"store"])->name("admin.storeCategory");
+    Route::put("/admin/category/update/{category:slug}",[CategoryController::class,"update"])->name("admin.updateCategory");
     Route::delete("admin/categories-delete/{category}",[CategoryController::class,"destroy"])->name("admin.deleteCategory");
 
     Route::get("/admin/coupons",AdminCouponsComponent::class)->name("admin.coupons");
