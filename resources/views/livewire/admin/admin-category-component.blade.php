@@ -16,7 +16,7 @@
                             All Categories
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ route("admin.addCoupons") }}" class="btn btn-success pull-right">Add New Category</a>
+                            <a href="{{ route('admin.addCategory') }}" class="btn btn-success pull-right">Add New Category</a>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->slug }}</td>
                                     <td>
-                                        <a href="" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ route("admin.editCategory",$category->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <form action="{{ route("admin.deleteCategory",$category->id) }}" method="post" style="display: inline-block">
                                             @csrf
                                             @method("delete")

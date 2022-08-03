@@ -8,6 +8,6 @@ class AdminEditCategoryComponent extends Component
 {
     public function render()
     {
-        return view('livewire.admin.admin-edit-category-component');
+        return view('livewire.admin.admin-edit-category-component')->layout("layouts.base");
     }
 }
