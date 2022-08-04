@@ -146,7 +146,7 @@
                         <ul class="list-category">
                             @foreach ($categories as $category )
                             <li class="category-item {{ count($category->subCategories) > 0 ? "has-child-cate" : "" }}">
-                                <a href="" class="cate-link">{{ $category->name }}</a>
+                                <a href="{{ route("product.category",["category"=>$category->slug]) }}" class="cate-link">{{ $category->name }}</a>
                                 @if (count($category->subCategories) > 0)
                                 <span class="toggle-control">+</span>
                                 <ul class="sub-cate">
