@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Category;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
@@ -34,6 +33,8 @@ use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditSubCategoryComponent;
+use App\Http\Livewire\CategoryComponent;
+use App\Http\Livewire\SubCategoryComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,8 @@ Route::get("/cart",CartComponent::class)->name("cart");
 Route::get("/wishlist",WishlistComponent::class)->name("wishlist");
 Route::get("/checkout",CheckoutComponent::class)->middleware(['auth:sanctum','verified'])->name("checkout");
 Route::get("/product/{slug}",DetailsComponent::class)->name("product.detail");
+Route::get("/product/category/{category}",CategoryComponent::class)->name("product.category");
+Route::get("/product/sub-category/{subcategory}",SubCategoryComponent::class)->name("product.subcategory");
 Route::post("/cart/store",[CartController::class,'store'])->name("cart.store");
 Route::put("/cart/qty-in/{product:slug}",[CartController::class,'qtyincrease'])->name("cart.qtyin");
 Route::put("/cart/qty-dec/{product:slug}",[CartController::class,'qtydecrease'])->name("cart.qtydec");

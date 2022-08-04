@@ -1,3 +1,9 @@
+@php
+    use App\Models\SubCategory;
+    use App\Models\Product;
+    $subcategory = SubCategory::where("slug",$subcategory)->first();
+    $subproducts = Product::where("subcategory_id",$subcategory->id)->paginate(5);
+@endphp
 <style>
     .product-wish{
         position: absolute;
@@ -85,7 +91,7 @@
                         @php
                             $wishitems = Cart::instance('wishlist')->content()->pluck('id');
                         @endphp
-                        @foreach ($products as $key => $product )
+                        @foreach ($subproducts as $key => $product )
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
@@ -128,7 +134,7 @@
                 </div>
 
                 <div class="wrap-pagination-info">
-                    {{ $products->links() }}
+                    {{ $subproducts->links() }}
                     {{-- <ul class="page-numbers">
                         <li><span class="page-number-item current" >1</span></li>
                         <li><a class="page-number-item" href="#" >2</a></li>
